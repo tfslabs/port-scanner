@@ -11,7 +11,6 @@ namespace Scanner
     class Program
     {
         static Mutex fileMutex = new Mutex();
-        static StreamWriter file = null;
         public static void Usage()
         {
             Console.WriteLine(
