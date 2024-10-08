@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
 using System.Threading;
+using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Scanner
 {
@@ -38,8 +38,8 @@ GENERAL COMMANDS:
     timeout       - Maximum scanning time per port. Useful when scanning on
                     large number of ports
 
-    outfile       - Export results to a file. R/W is required on the target
-                    directory
+    outfile       - [Removed since version 1.1] Export results to a file. 
+                    R/W is required on the target directory
 
 DEFINED PORTS:
 
@@ -64,7 +64,7 @@ DEFINED PORTS:
     all-ports    - All ports in range 1, 65535
 
 SAMPLES:
-    PortScanner.exe hosts=127.0.0.1,google.com ports=21,22,23 timeout=5000 outfile=C:\scans.txt
+    PortScanner.exe hosts=127.0.0.1,google.com ports=21,22,23 timeout=5000
     PortScanner.exe hosts=localhost ports=admin
               ");
         }
@@ -72,7 +72,7 @@ SAMPLES:
         static Dictionary<string, object> results = new Dictionary<string, object>();
         public static Dictionary<string, object> ArgParser(string[] args)
         {
-            string[] keys = { "timeout", "hosts", "ports", "outfile", "infile" };
+            string[] keys = { "timeout", "hosts", "ports", "infile" };
             string[] requiredKeys = { "hosts", "ports" };
             results.Add("timeout", 500);
 
@@ -105,11 +105,6 @@ SAMPLES:
                         }
                         results.Remove("timeout");
                         results.Add("timeout", val2);
-                        break;
-                    case "outfile":
-                        var val3 = parts[1];
-                        results.Add("outfile", val3);
-                        Console.WriteLine("[Notification] Results will be written out to " + val3 + ".\n");
                         break;
                     case "ports":
                         if (parts[1] == "admin")
